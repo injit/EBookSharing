@@ -1,0 +1,3 @@
+guruni,password,indrajit,gurung,injit.gurung@gmail.com,14187610,Super User
+Sagar,123,sagar,tamang,sag@aol,58838,User
+Sareena,908,seree,lama,sl@aol,8853993,User
