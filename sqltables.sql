@@ -3,7 +3,7 @@ CREATE TABLE UserInfo
 (
 username VARCHAR(20) NOT NULL PRIMARY KEY ,
 password VARCHAR(20) NOT NULL,
-email    VARCHAR(20) NOT NULL,
+email    VARCHAR(50) NOT NULL,
 firstname VARCHAR(20) NOT NULL,
 lastname  VARCHAR(20) NOT NULL,
 is_SU BOOLEAN,
@@ -70,7 +70,7 @@ author VARCHAR(20),
 summary VARCHAR(1000),
 bookfile BLOB NOT NULL,
 request_points SMALLINT NOT NULL,
-granted_points SMALLINT NOT NULL,
+granted_points SMALLINT,
 FOREIGN KEY(uploader) REFERENCES UserInfo(username)
 );
 
