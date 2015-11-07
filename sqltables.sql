@@ -26,10 +26,10 @@ bookfile BLOB NOT NULL,
 uploader VARCHAR(20) NOT NULL,
 award_points SMALLINT NOT NULL,
 reading_point SMALLINT NOT NULL,
-read_counts SMALLINT,
+read_counts SMALLINT DEFAULT 0,
 last_date_read DATE,
 rating SMALLINT,
-rating_counts SMALLINT,
+rating_counts SMALLINT DEFAULT 0,
 FOREIGN KEY (uploader) REFERENCES UserInfo(username)
 );
 
@@ -42,7 +42,7 @@ GENERATED ALWAYS AS IDENTITY
 bookID SMALLINT NOT NULL ,
 username VARCHAR(20) NOT NULL,
 review_text VARCHAR(1000),
-rating SMALLINT,
+rating SMALLINT ,
 FOREIGN KEY (bookID) REFERENCES BookInfo(bookID)
 );
 
