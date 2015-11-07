@@ -10,9 +10,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -20,9 +22,7 @@ import java.sql.SQLException;
  */
 public class WritetoDB {
 
-    String url = "jdbc:mysql://localhost:3306/contactdb";
-    String user = "root";
-    String password = "secret";
+
 
     String bookPath = "/Users/indrajit/NetBeansProjects/EbookLogin_1/books&images/book.txt";
     String bookCover = "/Users/indrajit/NetBeansProjects/EbookLogin_1/books&images/sid.jpg";
@@ -34,18 +34,27 @@ public class WritetoDB {
 //            Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/UsersRegistration", "java", "java");
             DbConnector dbc = new DbConnector();
             Connection conn = dbc.Connects();
+            Date x = new Date();
+            java.sql.Date sqlDate = new java.sql.Date(x.getTime());
 
-            String sql = "INSERT INTO Books (BID, Book_Name, Uploader, BookCategory, BookCover, Text_Book, Pointstoread) values (?, ?, ?, ?, ?, ?,?)";
+            String sql = "INSERT INTO BookInfo (bookname, cover, author, summary, bookfile, uploader, award_points, reading_point, read_counts, last_date_read, rating, rating_counts) values (?, ?, ?, ?, ?, ?,?,?,?,?,?,?)";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, "3886");
-            statement.setString(2, "Siddhartha");
-            statement.setString(3, "System");
-            statement.setString(4, "Religious");
+            //statement.setString(1, "3886");
+            //statement.setInt(1, 1);
+            statement.setString(1, "Siddhartha");
             InputStream inputBookCover = new FileInputStream(new File(bookCover));
-            statement.setBlob(5, inputBookCover);
-            InputStream inputStream = new FileInputStream(new File(bookPath));
-            statement.setBlob(6, inputStream);
-            statement.setString(7, "30");
+            statement.setBlob(2, inputBookCover);
+            statement.setString(3, "hemingway");
+            statement.setString(4, "This is a trial description for this book.");
+            InputStream inputBookfile = new FileInputStream(new File(bookPath));
+            statement.setBlob(5, inputBookfile);
+            statement.setString(6, "test");
+            statement.setInt(7, 10);
+            statement.setInt(8, 30);
+            statement.setInt(9, 3);
+            statement.setDate(10, sqlDate);
+            statement.setInt(11, 5);
+            statement.setInt(12, 6);
 
             int row = statement.executeUpdate();
             if (row > 0) {

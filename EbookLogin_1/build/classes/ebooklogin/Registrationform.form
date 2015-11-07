@@ -73,7 +73,6 @@
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel8" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -88,7 +87,6 @@
                       <Component id="FirstNameTextField" alignment="0" min="-2" pref="203" max="-2" attributes="0"/>
                       <Component id="LastNameTextField" alignment="0" min="-2" pref="203" max="-2" attributes="0"/>
                       <Component id="EmailTextField" alignment="0" min="-2" pref="203" max="-2" attributes="0"/>
-                      <Component id="IDTextField" alignment="0" min="-2" pref="203" max="-2" attributes="0"/>
                       <Component id="jRadioButton3" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="410" max="-2" attributes="0"/>
@@ -140,19 +138,14 @@
                       <Component id="EmailTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="IDTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRadioButton3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jRadioButton3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jRadioButton4" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="71" max="32767" attributes="0"/>
+                  <EmptySpace pref="125" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="CancelButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="RegisterButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -203,13 +196,6 @@
         <Component class="javax.swing.JTextField" name="LastNameTextField">
         </Component>
         <Component class="javax.swing.JTextField" name="EmailTextField">
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel6">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="ID Number"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="IDTextField">
         </Component>
         <Component class="javax.swing.JTextField" name="UserNameTextField">
         </Component>

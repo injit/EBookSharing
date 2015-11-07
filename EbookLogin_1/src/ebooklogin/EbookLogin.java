@@ -20,6 +20,9 @@ public class EbookLogin {
     public static void main(String[] args) throws IOException{
         WritetoDB wdb = new WritetoDB();
         wdb.Write();
+        
+        //BookDisplayer bd = new BookDisplayer();
+        //bd.DisplaysBook();
 //        // TODO code application logic here
 //        
 //        String file_name = "test.txt";

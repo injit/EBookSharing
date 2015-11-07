@@ -132,7 +132,7 @@ public class UsersLoginform extends javax.swing.JFrame {
 
     private void SignInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignInButtonActionPerformed
         // TODO add your handling code here:
-        String path = "test.txt";
+
         String UserNameText = "";
         String delim = ",";
         String PassWordText = "";
@@ -144,12 +144,12 @@ public class UsersLoginform extends javax.swing.JFrame {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             conn = DriverManager.getConnection("jdbc:derby://localhost:1527/UsersRegistration", "java", "java");
             Statement User_Stmt = conn.createStatement();
-            String User_query = "Select * from UsersInfo";
+            String User_query = "Select * from UserInfo";
             ResultSet User_result = User_Stmt.executeQuery(User_query);
             boolean checkmatch = false;
             String SuperUserType = "Super User";
             String UserType = "User";
-            String UT = "";
+            boolean UT = false;
             if (!UserNameText.isEmpty() && !PassWordText.isEmpty()) {
                 while (User_result.next()) {
                     String UN = User_result.getString("UserName");
@@ -157,20 +157,19 @@ public class UsersLoginform extends javax.swing.JFrame {
                     
                     if (UN.equalsIgnoreCase(UserNameText) && PW.equals(PassWordText)) {
                         checkmatch = true;
-                        UT = User_result.getString("UserType");
+                        UT = User_result.getBoolean("is_SU");
                     }
                 }
 
                 if (checkmatch) {
-                    if (UT.equals(SuperUserType)) {
-                    //SpecialUser = ebookUsers.get(userName);
-                        //display the content as admin
+                    if(UT){
                         JOptionPane.showMessageDialog(null, "You are logged in as  Super user.");
                         cancel();
-                    } else {//if(uType.equals(UserType)){
-                        //display the content as user
+                    } else {
                         JOptionPane.showMessageDialog(null, "You are logged in as registered user.");
                         cancel();
+                        RegUserPage rup = new RegUserPage();
+                        rup.setVisible(true);
                     }
                 }
                 else{

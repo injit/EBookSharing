@@ -48,8 +48,6 @@ public class Registrationform extends javax.swing.JFrame {
         FirstNameTextField = new javax.swing.JTextField();
         LastNameTextField = new javax.swing.JTextField();
         EmailTextField = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        IDTextField = new javax.swing.JTextField();
         UserNameTextField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -78,8 +76,6 @@ public class Registrationform extends javax.swing.JFrame {
         jLabel4.setText("Last Name");
 
         jLabel5.setText("Email Address");
-
-        jLabel6.setText("ID Number");
 
         jLabel7.setText("User Registration Form");
 
@@ -116,7 +112,6 @@ public class Registrationform extends javax.swing.JFrame {
                                 .addGap(3, 3, 3))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6)
                             .addComponent(jLabel5)
                             .addComponent(jLabel8))
                         .addGap(5, 5, 5)))
@@ -128,7 +123,6 @@ public class Registrationform extends javax.swing.JFrame {
                     .addComponent(FirstNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(EmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(IDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jRadioButton3))
                 .addGap(410, 410, 410))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -168,17 +162,13 @@ public class Registrationform extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(EmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(IDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addComponent(jRadioButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jRadioButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CancelButton)
                     .addComponent(RegisterButton))
@@ -210,77 +200,94 @@ public class Registrationform extends javax.swing.JFrame {
     //String result = new String(); 
     private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
         // TODO add your handling code here:
-        String file_name = "test.txt";
+        //String file_name = "test.txt";
         String U_name = UserNameTextField.getText();
         String P_word = PasswordField1.getText();
         String F_name = FirstNameTextField.getText();
         String L_name = LastNameTextField.getText();
         String E_add = EmailTextField.getText();
-        String ID = IDTextField.getText();
+        //String ID = IDTextField.getText();
+        int points = 0;
+
         //////////       
-        String result;
+        //String result;
+        boolean result = false;
 
         if (jRadioButton3.isSelected()) {
-            result = "Super User";
-        } else if (jRadioButton4.isSelected()) {
-            result = "User";
-        } else {
-            result = "Unknown";
-        }
+            //result = "Super User";
+            result = true;
+        } //else if (jRadioButton4.isSelected()) {
+        //result = "User";
+        //          result = false;
+//        }
+//        } else {
+//            result = "Unknown";
+//        }
         try {
-            Connection conn;
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
-            conn = DriverManager.getConnection("jdbc:derby://localhost:1527/UsersRegistration", "java", "java");
+            DbConnector dbc = new DbConnector();
+            Connection conn = dbc.Connects();
+
+//            Class.forName("org.apache.derby.jdbc.ClientDriver");
+//            conn = DriverManager.getConnection("jdbc:derby://localhost:1527/UsersRegistration", "java", "java");
             Statement stmt = conn.createStatement();
             Statement UserNameStmt = conn.createStatement();
-            String UserN_query = "Select * from UsersInfo";
+            String UserN_query = "Select * from UserInfo";
             ResultSet UserN_result = UserNameStmt.executeQuery(UserN_query);
             boolean checkUserName = false;
-            while(UserN_result.next()){
+            boolean checkemail = false;
+            while (UserN_result.next()) {
                 String UN = UserN_result.getString("UserName");
-                if(UN.equalsIgnoreCase(U_name)) checkUserName = true;
+                String Uemail = UserN_result.getString("email");
+                if (UN.equalsIgnoreCase(U_name)) {
+                    checkUserName = true;
+                }
+                if (Uemail.equalsIgnoreCase(E_add)) {
+                    checkemail = true;
+                }
+
             }
-            if(!checkUserName){
-            String query = "Insert Into UsersInfo Values ('" + U_name + "','" + P_word + "','" + F_name + "','" + L_name + "','" + E_add + "','" + ID + "','" + result + "')";
+            if (!checkUserName) {
+                if (!checkemail) {
+                    String query = "Insert Into UserInfo Values ('" + U_name + "','" + P_word + "','" + F_name + "','" + L_name + "','" + E_add + "','" + result + "'," + 0 + ")";//,'" +0+"')";
 
-            if (!U_name.isEmpty() && !P_word.isEmpty() && !F_name.isEmpty() && !L_name.isEmpty() && !E_add.isEmpty() && !ID.isEmpty() && (jRadioButton3.isSelected() || jRadioButton4.isSelected())) {
-                if (jRadioButton3.isSelected())// && jRadioButton3.getText().equals("Super User"))
-                {
-                    String input = JOptionPane.showInputDialog(null, "Enter Your Access code:", "Verification", JOptionPane.OK_OPTION);
-                    if (input != null) {
-
-                        if (input.equals("Access"))//This is a hard coded Access code for Super User registration
+                    if (!U_name.isEmpty() && !P_word.isEmpty() && !F_name.isEmpty() && !L_name.isEmpty() && !E_add.isEmpty() && (jRadioButton3.isSelected() || jRadioButton4.isSelected())) {
+                        if (jRadioButton3.isSelected())// && jRadioButton3.getText().equals("Super User"))
                         {
-                            JOptionPane.showMessageDialog(null, "Yay! Access granted, You have now Super User privilege.");
+                            String input = JOptionPane.showInputDialog(null, "Enter Your Access code:", "Verification", JOptionPane.OK_OPTION);
+                            if (input != null) {
+
+                                if (input.equals("Access"))//This is a hard coded Access code for Super User registration
+                                {
+                                    JOptionPane.showMessageDialog(null, "Yay! Access granted, You have now Super User privilege.");
+                                    stmt.executeUpdate(query);
+                                    /*while(rs.next()){
+                                     System.out.println("Un"+ rs.getString("UserName")+ "UP "+ rs.getString("UserPassword")+ "FN "+ rs.getString("FirstName")+ "LN "+ rs.getString("LastName")+"email "+rs.getString("Email")+"UID "+ rs.getBigDecimal("UserID")+ "UType "+ rs.getString("UserType"));
+                                     }*/
+                                    //System.out.println("Connected to db");
+                                    conn.close();
+                                    cancel();
+                                    GreetingPage gp = new GreetingPage();
+                                    gp.setVisible(true);
+                                } else {
+                                    final JPanel jp = new JPanel();
+                                    JOptionPane.showMessageDialog(jp, "your access code is wrong !!!", "Warning", JOptionPane.WARNING_MESSAGE);
+                                }
+
+                            } else {
+                                final JPanel jp = new JPanel();
+                                JOptionPane.showMessageDialog(jp, "you clicked cancel !!! Try again", "Cancelled", JOptionPane.WARNING_MESSAGE);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Congratulations, You are now Registered User.");
                             stmt.executeUpdate(query);
-                            /*while(rs.next()){
-                             System.out.println("Un"+ rs.getString("UserName")+ "UP "+ rs.getString("UserPassword")+ "FN "+ rs.getString("FirstName")+ "LN "+ rs.getString("LastName")+"email "+rs.getString("Email")+"UID "+ rs.getBigDecimal("UserID")+ "UType "+ rs.getString("UserType"));
-                             }*/
-                            //System.out.println("Connected to db");
                             conn.close();
-                            cancel();
                             GreetingPage gp = new GreetingPage();
                             gp.setVisible(true);
-                        } else {
-                            final JPanel jp = new JPanel();
-                            JOptionPane.showMessageDialog(jp, "your access code is wrong !!!", "Warning", JOptionPane.WARNING_MESSAGE);
+                            cancel();
                         }
 
                     } else {
-                        final JPanel jp = new JPanel();
-                        JOptionPane.showMessageDialog(jp, "you clicked cancel !!! Try again", "Cancelled", JOptionPane.WARNING_MESSAGE);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Congratulations, You are now Registered User.");
-                    stmt.executeUpdate(query);
-                    conn.close();
-                    GreetingPage gp = new GreetingPage();
-                    gp.setVisible(true);
-                    cancel();
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(null, "All field needs to be filled out.");
+                        JOptionPane.showMessageDialog(null, "All field needs to be filled out.");
 //                UserNameTextField.setText("");
 //                PasswordField1.setText("");
 //                FirstNameTextField.setText("");
@@ -288,17 +295,19 @@ public class Registrationform extends javax.swing.JFrame {
 //                EmailTextField.setText("");
 //                IDTextField.setText("");
 //                jRadioButton3.isSelected();
-            }
-            //cancel();
-        }
-            else{
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "This email address is already used.");
+                }
+                //cancel();
+            } else {
                 JOptionPane.showMessageDialog(null, "UserName already taken.");
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-            
+
         }
-        
+
     }//GEN-LAST:event_RegisterButtonActionPerformed
 
 
@@ -348,7 +357,6 @@ public class Registrationform extends javax.swing.JFrame {
     private javax.swing.JButton CancelButton;
     private javax.swing.JTextField EmailTextField;
     private javax.swing.JTextField FirstNameTextField;
-    private javax.swing.JTextField IDTextField;
     private javax.swing.JTextField LastNameTextField;
     private javax.swing.JPasswordField PasswordField1;
     private javax.swing.ButtonGroup RGroup;
@@ -359,7 +367,6 @@ public class Registrationform extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
