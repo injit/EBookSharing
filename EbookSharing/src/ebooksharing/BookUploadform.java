@@ -232,25 +232,6 @@ public class BookUploadform extends javax.swing.JFrame {
     //String result = new String(); 
     private void BookSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BookSubmitButtonActionPerformed
         // TODO add your handling code here:
-        //String file_name = "test.txt";
-        /*
-         CREATE TABLE PendingBook(
-         pbID INT NOT NULL PRIMARY KEY
-         GENERATED ALWAYS AS IDENTITY
-         (START WITH 1, INCREMENT BY 1),
-         uploader VARCHAR(20) NOT NULL,
-         bookname VARCHAR(50) NOT NULL,
-         cover BLOB NOT NULL,
-         author VARCHAR(20),
-         summary VARCHAR(1000),
-         bookfile BLOB NOT NULL,
-         request_points SMALLINT NOT NULL,
-         granted_points SMALLINT NOT NULL,
-         FOREIGN KEY(uploader) REFERENCES UserInfo(username)
-         );
-
-         */
-
         String B_name = BookNameTextField.getText();
         String A_name = BookAuthorTextField.getText();
         String B_summary = BookSummaryTextArea.getText();
@@ -325,9 +306,7 @@ public class BookUploadform extends javax.swing.JFrame {
                     stmt.execute();
 
                     conn.commit();
-
                     conn.close();
-
                     JOptionPane.showMessageDialog(null, "Book submission succcessful.", "Congratulations",  JOptionPane.OK_OPTION);
                     cancel();
                     ApplicationHome AH = new ApplicationHome();
